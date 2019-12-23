@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carbonic.acid.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.carbonic.acid.model.Goods" >
+    <id column="good_id" property="goodId" jdbcType="VARCHAR" />
+    <result column="good_name" property="goodName" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+    <result column="stock" property="stock" jdbcType="VARCHAR" />
+    <result column="descript" property="descript" jdbcType="VARCHAR" />
+    <result column="good_type" property="goodType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.carbonic.acid.model.GoodsWithBLOBs" extends="BaseResultMap" >
+    <result column="image_main" property="imageMain" jdbcType="LONGVARBINARY" />
+    <result column="image_one" property="imageOne" jdbcType="LONGVARBINARY" />
+    <result column="image_two" property="imageTwo" jdbcType="LONGVARBINARY" />
+    <result column="image_three" property="imageThree" jdbcType="LONGVARBINARY" />
+    <result column="image_four" property="imageFour" jdbcType="LONGVARBINARY" />
+    <result column="image_five" property="imageFive" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    good_id, good_name, unit_price, stock, descript, good_type, create_time, modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    image_main, image_one, image_two, image_three, image_four, image_five
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where good_id = #{goodId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goods
+    where good_id = #{goodId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.carbonic.acid.model.GoodsWithBLOBs" >
+    insert into goods (good_id, good_name, unit_price, 
+      stock, descript, good_type, create_time,
+      modify_time, image_main, image_one, 
+      image_two, image_three, image_four, 
+      image_five)
+    values (#{goodId,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{stock,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR}, #{goodType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{modifyTime,jdbcType=TIMESTAMP}, #{imageMain,jdbcType=LONGVARBINARY}, #{imageOne,jdbcType=LONGVARBINARY}, 
+      #{imageTwo,jdbcType=LONGVARBINARY}, #{imageThree,jdbcType=LONGVARBINARY}, #{imageFour,jdbcType=LONGVARBINARY}, 
+      #{imageFive,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.carbonic.acid.model.GoodsWithBLOBs" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        good_id,
+      </if>
+      <if test="goodName != null" >
+        good_name,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="descript != null" >
+        descript,
+      </if>
+      <if test="goodType != null" >
+        good_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="imageMain != null" >
+        image_main,
+      </if>
+      <if test="imageOne != null" >
+        image_one,
+      </if>
+      <if test="imageTwo != null" >
+        image_two,
+      </if>
+      <if test="imageThree != null" >
+        image_three,
+      </if>
+      <if test="imageFour != null" >
+        image_four,
+      </if>
+      <if test="imageFive != null" >
+        image_five,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="goodType != null" >
+        #{goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageMain != null" >
+        #{imageMain,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageOne != null" >
+        #{imageOne,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageTwo != null" >
+        #{imageTwo,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageThree != null" >
+        #{imageThree,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageFour != null" >
+        #{imageFour,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageFive != null" >
+        #{imageFive,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.carbonic.acid.model.GoodsWithBLOBs" >
+    update goods
+    <set >
+      <if test="goodName != null" >
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        descript = #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="goodType != null" >
+        good_type = #{goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageMain != null" >
+        image_main = #{imageMain,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageOne != null" >
+        image_one = #{imageOne,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageTwo != null" >
+        image_two = #{imageTwo,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageThree != null" >
+        image_three = #{imageThree,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageFour != null" >
+        image_four = #{imageFour,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageFive != null" >
+        image_five = #{imageFive,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where good_id = #{goodId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.carbonic.acid.model.GoodsWithBLOBs" >
+    update goods
+    set good_name = #{goodName,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR},
+      good_type = #{goodType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      image_main = #{imageMain,jdbcType=LONGVARBINARY},
+      image_one = #{imageOne,jdbcType=LONGVARBINARY},
+      image_two = #{imageTwo,jdbcType=LONGVARBINARY},
+      image_three = #{imageThree,jdbcType=LONGVARBINARY},
+      image_four = #{imageFour,jdbcType=LONGVARBINARY},
+      image_five = #{imageFive,jdbcType=LONGVARBINARY}
+    where good_id = #{goodId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.carbonic.acid.model.Goods" >
+    update goods
+    set good_name = #{goodName,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR},
+      good_type = #{goodType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where good_id = #{goodId,jdbcType=VARCHAR}
+  </update>
+</mapper>
