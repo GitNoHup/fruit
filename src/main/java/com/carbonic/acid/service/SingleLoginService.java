@@ -1,23 +1,20 @@
 package com.carbonic.acid.service;
 
 import com.carbonic.acid.common.VariableConstant;
-import com.carbonic.acid.dto.SingleLoginResult;
+import com.carbonic.acid.dto.login.SingleLoginResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.Cookie;
+
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Service
 public class SingleLoginService {
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;

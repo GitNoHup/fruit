@@ -1,4 +1,4 @@
-package com.carbonic.acid.dto;
+package com.carbonic.acid.dto.login;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.UpperCamelCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

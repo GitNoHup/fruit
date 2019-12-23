@@ -1,7 +1,7 @@
 package com.carbonic.acid.service;
 
 import com.carbonic.acid.common.VariableConstant;
-import com.carbonic.acid.dto.LoginDto;
+import com.carbonic.acid.dto.login.LoginDto;
 import com.carbonic.acid.mapper.UserMapper;
 import com.carbonic.acid.model.User;
 import org.apache.commons.lang3.StringUtils;

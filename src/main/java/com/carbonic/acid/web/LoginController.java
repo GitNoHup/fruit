@@ -1,6 +1,6 @@
-package com.carbonic.acid.controller;
+package com.carbonic.acid.web;
 
-import com.carbonic.acid.dto.LoginDto;
+import com.carbonic.acid.dto.login.LoginDto;
 import com.carbonic.acid.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

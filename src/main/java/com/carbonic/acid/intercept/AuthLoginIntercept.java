@@ -1,6 +1,6 @@
 package com.carbonic.acid.intercept;
 
-import com.carbonic.acid.dto.SingleLoginResult;
+import com.carbonic.acid.dto.login.SingleLoginResult;
 import com.carbonic.acid.service.SingleLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.carbonic.acid.dto;
+package com.carbonic.acid.dto.login;
 
 import lombok.Data;
 

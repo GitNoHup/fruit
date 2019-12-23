@@ -1,6 +1,6 @@
 package com.carbonic.acid.config.intercepors;
 
-import com.carbonic.acid.dto.LoginDto;
+import com.carbonic.acid.dto.login.LoginDto;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
