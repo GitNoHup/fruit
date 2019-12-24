@@ -5,7 +5,9 @@
     <title>Login Page</title>
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/sto/css/sto.css"/>
     <link rel="stylesheet" href="/style/style.css">
+
 </head>
 <body>
 <div class="container">
@@ -14,21 +16,69 @@
             <h3 class="form-title">LOGIN</h3>
             <form action="/login/validate">
                 <div class="col-md-9">
-                    <div class="form-group">
-                        <i class="fa fa-user fa-lg"></i>
-                        <input class="form-control required" type="text" placeholder="Username" id="username" name="username" autofocus="autofocus" maxlength="20"/>
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="form-group">
+                                    <i class="fa fa-user fa-lg"></i>
+                                    <input class="form-control required" type="text" placeholder="Username"
+                                           id="username"
+                                           name="username" autofocus="autofocus" maxlength="20"/>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="form-group">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                    <input class="form-control required" type="password" placeholder="Password"
+                                           id="password"
+                                           name="password" maxlength="8"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <button type="submit" class="btn btn-success" name="submit">登录</button>
+                            </td>
+                            <td align="center">
+                                <button type="button" class="btn btn-success btnName" data-type="logon">注册</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="registerForm" style="display: none">
+    <div class="ibox border_n">
+        <div class="ibox_form">
+            <form class="layui-form-item layui-form-pane layui-form pl-20 pb-20 pt-10 pr-20" id="editForm">
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline pos-r">
+                        <input type="text" id="addUserName" name="addUserName" class="layui-input" maxlength="10"
+                               lay-verify="required">
+                        <i class="icon_ca_layui"></i>
                     </div>
-                    <div class="form-group">
-                        <i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="Password" id="password" name="password" maxlength="8"/>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline pos-r">
+                        <input type="text" id="addPassword" name="addPassword" class="layui-input" maxlength="6"
+                               lay-verify="required">
+                        <i class="icon_ca_layui"></i>
                     </div>
-                    <div class="form-group">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember" value="1"/>记住我
-                        </label>
-                    </div>
-                    <div class="form-group col-md-offset-9">
-                        <button type="submit" class="btn btn-success pull-right" name="submit">登录</button>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-inline pos-r">
+                        <input type="text" id="sure" name="sure" class="layui-input" maxlength="6"
+                               lay-verify="required">
+                        <i class="icon_ca_layui"></i>
                     </div>
                 </div>
             </form>
@@ -36,6 +86,7 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="/lib/laydate/laydate.js"></script>
 <script type="text/javascript" src="/lib/jquery/jquery.js"></script>
 <script type="text/javascript" src="/lib/bootstrapTable/bootstrap-table.js"></script>
 <script type="text/javascript" src="/lib/bootstrapTable/bootstrap.min.js"></script>
@@ -45,6 +96,82 @@
 <script type="text/javascript" src="/lib/layerui/layui.js"></script>
 <script type="text/javascript" src="/lib/sto/sto.js"></script>
 <script>
+
+    var addSubmit = function (form, index){
+        if(!form.addUserName){
+            layer.msg("请填写用户名",{icon:5});
+            return false;
+        }
+
+        if(!form.addPassword){
+            layer.msg("请填写密码",{icon:5});
+            return false;
+        }
+
+        if(form.addPassword != form.sure){
+            layer.msg("两次输入的密码不一致",{icon:5});
+            return false;
+        }
+
+        $.ajax({
+            url : "/authority/register",
+            contentType : "application/json",
+            method : "post",
+            data : JSON.stringify(form),
+            async : false,
+            success : function (response){
+                if(response.errorCode == 20100){
+                    layer.msg('注册成功！', {icon: 1});
+                    layer.close(index);
+
+                } else {
+                    layer.msg(response.errorMsg, {icon: 5});
+                }
+            }
+        })
+
+    }
+
+    layui.use(['layer', 'form', 'laydate', 'test', 'autocomplete', 'http'], function () {
+        var form = layui.form(),
+            layer = layui.layer,
+            laydate = layui.laydate,
+            test = layui.test,
+            autocomplete = layui.autocomplete,
+            http = layui.http;
+
+        test.restVal();
+        test.selectMove();
+        test.formToggle({
+            ifTableResize: true
+        });
+
+        var active = {
+            logon: function () {
+                layer.open({
+                    type: 1,
+                    title: '注册',
+                    area: ['380px', '280px'],
+                    content: $('#registerForm'),
+                    btn: ['确定', '取消'],
+                    yes: function (index, layero) {
+                        var form = {};
+                        form.addUserName = $("#addUserName").val();
+                        form.addPassword = $("#addPassword").val();
+                        form.sure = $("#sure").val();
+
+                        addSubmit(form, index);
+                    }
+                });
+            }
+        }
+
+        $('body').on('click', '.btnName', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+    });
 
 </script>
 </head>
